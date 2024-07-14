@@ -1,98 +1,95 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <title> NSC</title>
-    <!-- <link rel="stylesheet" href="/css/style.css"> -->
-    <link rel="stylesheet" href="/css/style.css">
 
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <meta charset="UTF-8">
+  <title>NSC</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/swiper-bundle.min.css') }}">
 
-     
 
-   </head>
-   
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+</head>
+
 <body id="firstpage">
   <div class="container">
-    <div class="title">User input Form</div>
+    <div class="title">Input the data below to get clustering results</div>
     <div class="content">
       <form action="#">
         <div class="user-details">
           <div class="input-box">
             <span class="details">Age</span>
-            <input type="text" placeholder="Enter your name" required>
+            <input type="number" class="form-control" id="age" name="age" required placeholder="Age">
           </div>
 
           <div class="input-box">
             <span class="details">Credit Limit</span>
-            <input type="text" placeholder="Enter your password" required>
+            <input type="number" class="form-control" id="credit" name="credit" required placeholder="Credit Limit">
           </div>
 
           <div class="input-box">
-            <span class="details">Months on Book</span>
-            <input type="text" placeholder="Enter your Months on Book" required>
+            <span class="details">Total Transfer Amount</span>
+            <input type="number" class="form-control" id="trans_amt" name="trans_amt" required placeholder="Total Transfer Amount">
           </div>
           <div class="input-box">
-            <span class="details">Total Trans Amount</span>
-            <input type="text" placeholder="Confirm your password" required>
-          </div>
-          <div class="input-box">
-            <span class="details">Total Trans Count</span>
-            <input type="text" placeholder="Confirm your password" required>
+            <span class="details">Max Income</span>
+            <input type="number" class="form-control" id="income" name="income" required placeholder="Max Income">
           </div>
 
-          
+
           <div class="form-group Education">
             <span class="details"> Education Level</span>
-            <select required class="input-box">
-              <option value="" disabled selected>Select your Education </option>
+            <select  class="input-box" id="education" name="education" required>
+              <option value="" disabled selected>Select education level</option>
+              <option value="Uneducated">Uneducated</option>
               <option value="High School">High School</option>
               <option value="Graduate">Graduate</option>
               <option value="College">College</option>
               <option value="Post-Graduate">Post-Graduate</option>
-              <option value="Doctorated">Doctorated</option>
-              <option value="Unknow">Unknow</option>
+              <option value="Doctorate">Doctorate</option>
+              <option value="Unknown">Unknown</option>
             </select>
           </div>
-
-          <div class="form-group Marital">
-            <span style="padding-right: 15px;" class="details">Marital Status</span>
-            <select required class="input-box">
-              <option value="" disabled selected>Select marital status </option>
-              <option value="Single">Single</option>
-              <option value="Married">Marriede</option>
-              <option value="Divorced">Divorced</option>
-              <option value="Unknow">Unknow</option>
-            </select>
-          </div>
-          
-         
-         
-         
         </div>
         <div class="gender-details">
           <input type="radio" name="gender" id="dot-1">
-          <input type="radio" name="gender" id="dot-2">
-          <input type="radio" name="gender" id="dot-3">
+          <input type="radio" name="gender" value="M" id="dot-2">
+          <input type="radio" name="gender" value="F" id="dot-3">
           <span class="gender-title">Gender</span>
           <div class="category">
             <label for="dot-1">
-            <span class="dot one"></span>
-            <span class="gender">Male</span>
-          </label>
-          <label for="dot-2">
-            <span class="dot two"></span>
-            <span class="gender">Female</span>
-          </label>
-          <label for="dot-3"></label>
+              <span class="dot one"></span>
+              <span class="gender">Male</span>
+            </label>
+            <label for="dot-2">
+              <span class="dot two"></span>
+              <span class="gender">Female</span>
+            </label>
+            <label for="dot-3"></label>
           </div>
         </div>
         <div class="button">
-          <input type="submit" value="Submit" onclick="location.pathname = '/page2.html'">
+          <input type="submit" value="Submit">
+          <button type="submit" class="btn btn-primary">Submit</button>
+
         </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
       </form>
+      {% if cluster is defined %}
+        <div class="mt-4">
+            <h4>Prediction Result:</h4>
+            <p>The customer belongs to Cluster {{ cluster }}</p>
+        </div>
+        {% endif %}
     </div>
   </div>
 
 </body>
+
 </html>

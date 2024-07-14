@@ -5,8 +5,14 @@ import pandas as pd
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
-def hello_world():
+def index():
     return render_template('index.html')
+
+@app.route('/result', methods=['GET'])
+def result():
+    return render_template('resultPage.html')
+
+
 
 @app.route('/', methods=['POST'])
 def predict():
@@ -45,7 +51,7 @@ def predict():
     print(prediction[0])
     print(type(prediction[0]))
 
-    return render_template('index.html', cluster=prediction[0])
+    return render_template('resultPage.html', cluster=prediction[0])
 
 if __name__ == '__main__':
     app.run(port = 3000, debug=True)

@@ -20,7 +20,7 @@
   <div class="container">
     <div class="title">Input the data below to get clustering results</div>
     <div class="content">
-      <form action="#">
+      <form method="POST">
         <div class="user-details">
           <div class="input-box">
             <span class="details">Age</span>
@@ -75,18 +75,14 @@
         </div>
         <div class="button">
           <input type="submit" value="Submit">
-          <button type="submit" class="btn btn-primary">Submit</button>
-
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-
       </form>
-      {% if cluster is defined %}
+      <!-- {% if cluster is defined %}
         <div class="mt-4">
             <h4>Prediction Result:</h4>
             <p>The customer belongs to Cluster {{ cluster }}</p>
         </div>
-        {% endif %}
+        {% endif %} -->
     </div>
   </div>
 

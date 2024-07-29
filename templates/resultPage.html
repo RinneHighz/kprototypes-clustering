@@ -1,17 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title> NSC</title>
-<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" crossorigin="">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/swiper-bundle.min.css') }}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> NSC</title>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" crossorigin="">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/swiper-bundle.min.css') }}">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    .text_section {
+      display: inline-block;
+      vertical-align: top;
+      width: 60%;
+      padding: 10px;
+    }
+
+    .image_section {
+      display: inline-block;
+      vertical-align: top;
+      width: 35%;
+      padding: 10px;
+    }
+
+    .image_section img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .container {
+      display: flex;
+      align-items: flex-start;
+    }
+  </style>
+</head>
 
 
 
@@ -42,34 +69,44 @@
         {% if cluster == 0 %}
         <div class="text_section">
           <h2>Strategic Spender</h2>
-          <p>เพศชายทั้งหมด ได้รับวงเงินบัตรเครดิตระดับน้อยจนถึงปานกลางมียอดใช้จ่ายบัตรเครดิตน้อย
-            และมีรายได้อยู่ในช่วงปานกลางถึงสูง</p>
+          <p>ลักษณะของกลุ่ม:<br />
+            - ประกอบด้วยเพศชายทั้งหมด<br />
+            - ได้รับวงเงินบัตรเครดิตตั้งแต่ระดับน้อยถึงปานกลาง<br />
+            - มียอดใช้จ่ายผ่านบัตรเครดิตในระดับต่ำ<br />
+            - มีรายได้อยู่ในช่วงปานกลางถึงสูง</p>
         </div>
         <div class="image_section">
-          <img src="{{ url_for('static', filename='images/avatar-1.png') }}" alt="" />
+          <img src="{{ url_for('static', filename='images/0.png') }}" alt="Strategic Spender" />
         </div>
+
         {% elif cluster == 1 %}
-        <h1>Cluster 1</h1>
         <div class="text_section">
           <h2>Selective Spender</h2>
-          <p>กลุ่มนี้มีลูกค้าทั้งเพศชายและหญิง ได้รับวงเงินบัตรเครดิตสูง มียอดใช้จ่ายบัตรเครดิตน้อยถึงปานกลาง และมีรายได้สูง</p>
+          <p>ลักษณะของกลุ่ม:<br />
+            - ประกอบด้วยลูกค้าทั้งเพศชายและหญิง โดยมีเพศชายเป็นส่วนใหญ่<br />
+            - ได้รับวงเงินบัตรเครดิตสูง<br />
+            - มียอดใช้จ่ายผ่านบัตรเครดิตตั้งแต่ระดับต่ำถึงปานกลาง<br />
+            - มีรายได้สูง</p>
         </div>
         <div class="image_section">
-          <img src="{{ url_for('static', filename='images/avatar-1.png') }}" alt="" />
+          <img src="{{ url_for('static', filename='images/1.png') }}" alt="Selective Spender" />
         </div>
-        {% elif cluster == 2 %}
-        <h1>Cluster 2</h1>
-        {% endif %}
-        {% endif %}
-        <!-- <div class="text_section">
-          <h2>Strategic Spendern</h2>
-          <p>เพศชายทั้งหมด ได้รับวงเงินบัตรเครดิตระดับน้อยจนถึงปานกลางมียอดใช้จ่ายบัตรเครดิตน้อย
-            และมีรายได้อยู่ในช่วงปานกลางถึงสูง</p>
-        </div> -->
 
-        <div class="image_section">
-          <img src="img/avatar-1.png" alt="" />
+        {% elif cluster == 2 %}
+        <div class="text_section">
+          <h2>Budget-Savvy Spender</h2>
+          <p>ลักษณะของกลุ่ม:<br />
+            - ประกอบด้วยลูกค้าทั้งเพศชายและหญิง โดยมีเพศหญิงเป็นส่วนใหญ่<br />
+            - ได้รับวงเงินบัตรเครดิตน้อย<br />
+            - มียอดใช้จ่ายผ่านบัตรเครดิตต่ำ<br />
+            - มีรายได้ตั้งแต่ระดับน้อยถึงปานกลาง</p>
         </div>
+        <div class="image_section">
+          <img src="{{ url_for('static', filename='images/2.png') }}" alt="Budget-Savvy Spender" />
+        </div>
+        {% endif %}
+        {% endif %}
+
       </div>
     </div>
   </section>
@@ -81,10 +118,12 @@
       <h3 class="card__name">แผนการการตลาดที่แนะนำ</h3>
       <div class="card__container swiper">
         <div class="card__content">
+          {% if cluster is defined %}
+          {% if cluster == 0 %}
           <div class="swiper-wrapper">
             <article class="card__article swiper-slide">
               <div class="card__image">
-                <img src="{{ url_for('static', filename='images/cluster0_01.png') }}" alt="image" class="card__img">
+                <img src="{{ url_for('static', filename='images/0_1.png') }}" alt="image" class="card__img">
                 <div class="card__shadow"></div>
               </div>
 
@@ -97,7 +136,7 @@
 
             <article class="card__article swiper-slide">
               <div class="card__image">
-                <img src="{{ url_for('static', filename='images/cluster0_02.png') }}" alt="image" class="card__img">
+                <img src="{{ url_for('static', filename='images/0_2.png') }}" alt="image" class="card__img">
                 <div class="card__shadow"></div>
               </div>
 
@@ -111,9 +150,10 @@
 
             <article class="card__article swiper-slide">
               <div class="card__image">
-                <img src="{{ url_for('static', filename='images/cluster0_03.png') }}" alt="image" class="card__img">
+                <img src="{{ url_for('static', filename='images/0_3.png') }}" alt="image" class="card__img">
                 <div class="card__shadow"></div>
               </div>
+
               <div class="card__data">
                 <p class="card__description">
                   เพิ่มวงเงินบัตรเครดิต ลูกค้าที่มีรายได้ระดับปานกลางขึ้นไปที่มีประวัติในการชำระหนี้ดี
@@ -123,7 +163,7 @@
 
             <article class="card__article swiper-slide">
               <div class="card__image">
-                <img src="{{ url_for('static', filename='images/cluster0_04.png') }}" alt="image" class="card__img">
+                <img src="{{ url_for('static', filename='images/0_4.png') }}" alt="image" class="card__img">
                 <div class="card__shadow"></div>
               </div>
 
@@ -134,15 +174,103 @@
               </div>
             </article>
           </div>
+
+          {% elif cluster == 1 %}
+          <div class="swiper-wrapper">
+            <article class="card__article swiper-slide">
+              <div class="card__image">
+                <img src="{{ url_for('static', filename='images/1_1.png') }}" alt="image" class="card__img">
+                <div class="card__shadow"></div>
+              </div>
+
+              <div class="card__data">
+                <p class="card__description">
+                  กระตุ้นการใช้จ่ายผ่านโปรแกรมสะสมคะแนนเพื่อแลกรับของรางวัล 
+                </p>
+              </div>
+            </article>
+
+            <article class="card__article swiper-slide">
+              <div class="card__image">
+                <img src="{{ url_for('static', filename='images/1_2.png') }}" alt="image" class="card__img">
+                <div class="card__shadow"></div>
+              </div>
+
+              <div class="card__data">
+                <p class="card__description">
+                  มอบสิทธิพิเศษระดับพรีเมียมเมื่อมียอดใช้จ่ายถึงระดับที่กำหนด
+                </p>
+
+              </div>
+            </article>
+
+            <article class="card__article swiper-slide">
+              <div class="card__image">
+                <img src="{{ url_for('static', filename='images/1_3.png') }}" alt="image" class="card__img">
+                <div class="card__shadow"></div>
+              </div>
+
+              <div class="card__data">
+                <p class="card__description">
+                  ร่วมรายการส่งเสริมการขายกับสินค้าหรือบริการที่เหมาะสมกับกลุ่มเพศชาย
+                </p>
+              </div>
+            </article>
+          </div>
+
+          {% elif cluster == 2 %}
+          <div class="swiper-wrapper">
+            <article class="card__article swiper-slide">
+              <div class="card__image">
+                <img src="{{ url_for('static', filename='images/2_1.png') }}" alt="image" class="card__img">
+                <div class="card__shadow"></div>
+              </div>
+
+              <div class="card__data">
+                <p class="card__description">
+                  จัดโปรแกรมผ่อนชำระ 0% สำหรับสินค้าหรือบริการที่มีราคาสูง
+                </p>
+              </div>
+            </article>
+
+            <article class="card__article swiper-slide">
+              <div class="card__image">
+                <img src="{{ url_for('static', filename='images/2_2.png') }}" alt="image" class="card__img">
+                <div class="card__shadow"></div>
+              </div>
+
+              <div class="card__data">
+                <p class="card__description">
+                  เพิ่มวงเงินบัตรเครดิตสำหรับลูกค้าที่มีรายได้ปานกลางและมีประวัติการชำระหนี้ดี
+                </p>
+
+              </div>
+            </article>
+
+            <article class="card__article swiper-slide">
+              <div class="card__image">
+                <img src="{{ url_for('static', filename='images/2_3.png') }}" alt="image" class="card__img">
+                <div class="card__shadow"></div>
+              </div>
+
+              <div class="card__data">
+                <p class="card__description">
+                  ร่วมรายการส่งเสริมการขายกับสินค้าหรือบริการ โดยจัดโปรโมชั่นในรูปแบบคุ้มค่า เช่น จ่าย 1 ได้ 2 ชิ้น เพื่อเพิ่มความคุ้มค่าในการใช้จ่ายสำหรับลูกค้ากลุ่มนี้ที่มีงบประมาณจำกัด
+                </p>
+              </div>
+            </article>
+          </div>
+          {% endif %}
+          {% endif %}
         </div>
 
         <!-- Navigation buttons -->
         <div class="swiper-button-next">
-          <i class="ri-arrow-right-s-line"></i>
+          <!-- <i class="ri-arrow-right-s-line"></i> -->
         </div>
 
         <div class="swiper-button-prev">
-          <i class="ri-arrow-left-s-line"></i>
+          <!-- <i class="ri-arrow-left-s-line"></i> -->
         </div>
 
         <!-- Pagination -->

@@ -21,9 +21,8 @@
     <div class="container">
       <div class="title">Input the data below to get clustering results</div>
       <div class="content">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
           <div class="user-details">
-
             <div class="input-box">
               <span class="details">Age</span>
               <input
@@ -160,9 +159,20 @@
             </div>
           </div>
           <div class="button">
-            <input type="submit" value="Submit" />
+            <input type="submit" name="single_submit" value="Submit" />
           </div>
         </form>
+
+        <form method="POST" enctype="multipart/form-data">
+          <div class="input-box">
+            <span class="details">Upload Excel File</span>
+            <input type="file" class="form-control" id="file" name="file" accept=".xlsx, .xls" />
+          </div>
+          <div class="button">
+            <input type="submit" name="file_submit" value="Submit Excel File" />
+          </div>
+        </form>
+
         <!-- {% if cluster is defined %}
         <div class="mt-4">
             <h4>Prediction Result:</h4>

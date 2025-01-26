@@ -25,5 +25,45 @@ let swiperCards = new Swiper(".card__content", {
     },
   });
 
+  var leftArrow = document.getElementById("leftArrow");
+  var rightArrow = document.getElementById("rightArrow");
+  var slider = document.getElementById("Slider");
+  
+  let a = 0;
+  rightArrow.style.visibility = "hidden";
+  leftArrow.onclick = function() {
+      a = a - 550;
+      slider.style.left = a + "px";
+      // right Arrow
+      if(a == 0){
+          rightArrow.style.visibility = "hidden";
+      }else{
+          rightArrow.style.visibility = "visible"
+      }
+      // Left Arrow
+      if(a == -1650){
+          leftArrow.style.visibility = "hidden";
+      }else{
+          leftArrow.style.visibility = "visible"
+      }
+  }
+  rightArrow.onclick = function() {
+      a = a + 550;
+      slider.style.left = a + "px";
+      // right Arrow
+      if(a == 0){
+          rightArrow.style.visibility = "hidden";
+      }else{
+          rightArrow.style.visibility = "visible"
+      }
+      // Left Arrow
+      if(a == -1650){
+          leftArrow.style.visibility = "hidden";
+      }else{
+          leftArrow.style.visibility = "visible"
+      }
+  }
+  
 
- 
+
+  

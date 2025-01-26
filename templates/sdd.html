@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CP499</title>
+
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css"
+      crossorigin=""
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='styles/swiper-bundle.min.css') }}"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #2c2c2c; /* สีพื้นหลัง */
+        color: #fff; /* สีตัวอักษร */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+  
+      .table-container {
+        background-color: white; /* พื้นหลังสีขาว */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เงา */
+        max-width: 90%;
+        overflow-x: auto;
+      }
+  
+      table.data {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0 auto;
+        text-align: left;
+      }
+  
+      table.data th, table.data td {
+        border: 1px solid #ddd; /* ขอบตาราง */
+        padding: 8px;
+      }
+  
+      table.data th {
+        background-color: #f4f4f4; /* สีพื้นหลังหัวตาราง */
+        color: #333; /* สีข้อความ */
+        text-align: center;
+      }
+  
+      table.data tr:nth-child(even) {
+        background-color: #f9f9f9; /* สีพื้นหลังสลับ */
+      }
+  
+      table.data tr:hover {
+        background-color: #f1f1f1; /* ไฮไลต์เมื่อชี้ */
+      }
+    </style>
+  </head>
+
+  <body id="secondpage">
+    <nav id="navbar">
+      <div class="navbar-container">
+        <div class="logo">
+          <img src="logo.png" alt="Logo">
+        </div>
+        <ul class="nav-items">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+  </nav>
+
+  <div class="banner">
+    <h2>Customer Data with Clustering Results</h2>
+    <div>
+      {% if tables %} {{ tables|safe }} {% else %}
+      <p>No data to display.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div id="content">
+    <h1>Welcome to our website</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto sequi ducimus, et excepturi magnam enim consequuntur aliquid quaerat praesentium ut nisi, tenetur nihil. Exercitationem sint eligendi veniam. Est, inventore debitis. Exercitationem veniam aliquam nisi accusantium ipsam fugiat expedita libero aspernatur vitae animi eos eveniet porro nesciunt unde illo eum ad, nobis perspiciatis ipsa est numquam magnam nemo fuga. Incidunt omnis nulla delectus perferendis molestias magni iure ipsum nesciunt suscipit voluptatum doloribus iste, laboriosam id dolore sint quasi natus quis dolorum eveniet. Dolorem aliquid delectus, laborum commodi placeat aspernatur eveniet, repellendus asperiores perferendis cumque illo dolor facilis obcaecati. Exercitationem, beatae. Repudiandae repellat deserunt deleniti obcaecati perspiciatis atque, alias labore! Explicabo similique natus, libero excepturi perspiciatis neque eaque eos corrupti id accusamus quo fuga earum beatae architecto saepe fugit optio illum incidunt provident. Similique ipsa voluptates deleniti sapiente, ipsam totam, dolorum, nesciunt ea atque fugiat harum quae accusamus in? Dignissimos necessitatibus illo dolorum exercitationem ipsum magnam hic ea expedita vitae suscipit quo vero officiis deleniti, illum voluptates odit non omnis incidunt nostrum neque consequatur doloremque obcaecati earum. Rem officia quod veniam ad quaerat. Inventore error quam ducimus numquam magnam cumque rerum ea adipisci, neque alias maiores nulla, atque maxime officia in optio? Id alias illo dolorum, fugiat enim asperiores quae! Adipisci sapiente neque consequatur omnis explicabo accusamus, eveniet, animi culpa veritatis, sint saepe perferendis aut facere cumque! Assumenda, quod. Enim adipisci possimus optio rem quidem nostrum rerum, error ad aspernatur quos quis minima iusto illum dolor molestias provident, recusandae sapiente. Dignissimos dolore voluptas exercitationem similique nam quam placeat magni cumque voluptatibus debitis explicabo culpa aspernatur, suscipit beatae consequatur ullam, tempora sapiente incidunt. Odit id odio adipisci ex officia aliquam ab aut pariatur recusandae itaque nam nostrum dolorum iste consectetur nulla consequuntur animi, eligendi esse. Qui omnis consequatur nisi repellat, delectus repellendus laudantium temporibus doloremque natus earum cupiditate, aperiam ullam iusto veritatis impedit corporis consequuntur? Dolorum, consectetur a. Excepturi, dignissimos minus! Eum necessitatibus tempora aliquid architecto dolor numquam quas officiis eligendi hic, consectetur perspiciatis fuga odit repudiandae veniam iusto repellat, nulla voluptas, soluta quibusdam ad est in quia magni? Neque ut sapiente voluptatum illum veritatis fugiat repellendus ullam atque quos maiores quo repudiandae, omnis sit, suscipit quae, laboriosam aperiam quam distinctio exercitationem. Porro quia nostrum odit quibusdam deleniti ad omnis maiores, magni doloremque reiciendis, dolor culpa. Ipsum quidem soluta adipisci quas repellendus ex eos! Aliquam ipsum mollitia ut eum ad quasi similique, repudiandae laborum suscipit eius voluptate enim dolor quis rerum consectetur laudantium! Quidem quibusdam ipsum explicabo quia sequi exercitationem, nobis, eligendi porro esse autem error necessitatibus beatae aliquam. Voluptatum atque rerum sint porro cum rem odio autem culpa quae, nam libero voluptate dicta odit natus quos? Cum quod libero ut quidem ipsum nulla, tempora impedit, iste, tenetur expedita eligendi dolore. Unde aliquam et pariatur cumque quae voluptatibus. Non tempora quam architecto eos veniam quo fuga, soluta, cupiditate provident at placeat similique delectus eveniet voluptate minima magnam reiciendis eaque! Corporis sequi quia sint ad consequatur nemo placeat accusantium tempore quae, accusamus dicta repellendus ipsa at harum eligendi unde doloremque! Id aspernatur qui tenetur doloremque fugit distinctio ipsa praesentium harum consequatur? Sed, quis mollitia enim numquam recusandae, at facere veritatis in excepturi exercitationem repudiandae architecto harum delectus ipsa, ab minima corrupti velit ea sapiente! Debitis delectus, sit quam recusandae maxime facere explicabo officiis eius impedit illo ex laudantium tenetur suscipit pariatur vitae fugit iste nulla voluptas! Odit, molestiae dolore. Consectetur magnam dicta quam facere cupiditate voluptatem. Vel aliquam nulla velit corrupti consectetur laudantium, atque nobis quibusdam, cumque nisi praesentium harum, quod quidem fugiat perferendis eum optio iure cupiditate voluptas officia recusandae? Iure suscipit dolor molestiae accusamus minima voluptatum, incidunt dolorem necessitatibus, exercitationem beatae consectetur nostrum nihil recusandae odit sed, quas laudantium perspiciatis distinctio? Ab officia pariatur iusto dicta distinctio provident inventore ullam, vel debitis aut aliquid? Alias culpa dolorum omnis qui, perspiciatis sint animi ipsam illo aut laboriosam nisi exercitationem beatae maxime quidem rerum ratione tempore fugit doloremque reprehenderit neque quisquam odit laborum rem et. Nihil molestias, beatae alias nam eum maiores nobis quo soluta esse ipsa atque recusandae voluptate optio sint error totam, dolor suscipit aliquam perspiciatis. Quo mollitia, at necessitatibus repellendus tenetur illo facilis ad porro, delectus corporis inventore nesciunt reprehenderit accusamus est ipsum quaerat officia perferendis iusto. Facere illum labore esse quos omnis, non eius doloremque adipisci reiciendis distinctio nisi odit maxime optio quam pariatur dignissimos provident repellat debitis eveniet inventore? Iusto a deleniti exercitationem sed, iste officiis incidunt, similique nesciunt dolorem, quod voluptatibus provident pariatur at nulla ex expedita dolorum sunt dignissimos ea error voluptatum. Voluptatum ratione totam eum voluptates sequi eligendi quia quas aperiam nisi sapiente ad ea corrupti, commodi tenetur dolorem repellendus nostrum, quae placeat. Nemo veritatis suscipit, harum voluptas blanditiis unde ex iure magnam itaque alias, sunt enim, repudiandae fuga amet iste consequatur ullam sequi assumenda eaque eum minima? Illo libero sequi aliquid eius ea, impedit eum. Pariatur laborum ad rem ratione illo culpa voluptatem quidem soluta mollitia similique ducimus eligendi explicabo assumenda iusto, asperiores, eum molestias ipsum qui sint, sunt nobis velit maiores. Et fuga quasi debitis, laboriosam minima commodi itaque pariatur aliquid velit placeat dignissimos error eaque dolore soluta veritatis expedita sit eum, aliquam distinctio at ipsa! Aperiam, sunt! Atque ipsa ratione labore optio iure, quaerat culpa aut repudiandae sit aliquam fugit modi maxime rerum architecto delectus facere ipsam nobis. Ad eum autem rem repudiandae corrupti nam quam sit tenetur veniam ipsa. Culpa nemo ipsam tenetur vero voluptatum error rerum, magnam ipsum recusandae? Sunt voluptates nisi provident, totam alias enim voluptatibus hic iste ratione quae aspernatur quos autem laborum veniam nesciunt, omnis quibusdam debitis dolorum ipsam possimus nemo magnam numquam ut? Blanditiis eligendi alias ullam! Eaque sapiente commodi culpa temporibus veniam maxime? Expedita libero fuga consequatur asperiores ullam eius laborum odit sint cumque tenetur totam fugiat, ex, similique laudantium minima aliquam cum dolore ad reiciendis sapiente placeat. Temporibus repudiandae fugiat officiis rerum! Voluptatibus repellendus odit beatae officia hic iure, delectus, molestiae obcaecati harum rem nam. Vitae esse animi ullam officia consectetur libero odit laboriosam quo.</p>
+  </div>
+
+
+
+
+    <!-- <main>
+      <div>
+        <section>
+          <!-- <h2>Customer Data with Clustering Results</h2> --> -->
+          <!-- <div>
+            {% if tables %} {{ tables|safe }} {% else %}
+            <p>No data to display.</p>
+            {% endif %}
+          </div>
+        </section>
+      </div>
+      
+    </main>
+  </body> -->
+
+
+
+  <script src="{{ url_for('static', filename='js/swiper-bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script src="../static/styles/style_resualtPage.css"></script>
+
+  
+</html>

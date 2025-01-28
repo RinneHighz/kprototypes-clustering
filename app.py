@@ -15,6 +15,8 @@ def result():
     return render_template("resultPage.html")
 
 
+
+
 @app.route("/", methods=["POST"])
 def predict():
     # ตรวจสอบว่ามาจากการกรอกข้อมูลคนเดียว

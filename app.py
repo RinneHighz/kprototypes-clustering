@@ -14,6 +14,9 @@ def index():
 def result():
     return render_template("resultPage.html")
 
+@app.route("/about", methods=["GET"])
+def about():
+    return render_template("about.html")
 
 
 

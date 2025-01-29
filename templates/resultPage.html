@@ -55,9 +55,6 @@
     </div>
     <div class="row">
       <div class="col-md-12 py-3 py-md-0">
-        <div class="card">
-          <img src="./images/book-img.png" alt="">
-
           <section>
             <div>
                {% if tables %} {{ tables|safe }} {% else %}
@@ -65,8 +62,7 @@
               {% endif %}
             </div>
           </section>
-          
-        </div>
+
       </div>
     </div>
   </div>
@@ -122,7 +118,12 @@
 						<div class="card-body">
 							<img alt="" class="img-fluid rounded-circle" src="..//static/images/1_3.png">
 							<h3 class="card-title py-2">Cluster 0</h3>
-							<p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sequi ipsam nostrum illo tempora esse quibusdam.</p>
+							<p class="card-text"> ผู้มีรายได้น้อย หรือวงเงินเครดิตต่ำ
+                เกณฑ์:
+              <p class="card-text">Credit_Limit < 2110.5,Min_Income < 20000,</p>
+             
+              <p class="card-text">Age จะยังไม่ค่อยมีความสำคัญ เพราะมีกลุ่มนี้จะมีในทั้ง 2 ช่วงอายุที่ต้นไม้แบ่งมา(ทั้งมากกว่าและน้อยกว่า 43.5)</p>
+              </p>
 							<p class="socials"><i class="bi bi-twitter text-dark mx-1"></i> <i class="bi bi-facebook text-dark mx-1"></i> <i class="bi bi-linkedin text-dark mx-1"></i> <i class="bi bi-instagram text-dark mx-1"></i></p>
 						</div>
 					</div>

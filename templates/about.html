@@ -1,111 +1,200 @@
-<!DOCTYPE html>
 <html lang="en">
-<head>
-<title>ABOUT</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CP499 About</title>
 
+    <link rel="stylesheet" href="../static/styles/style1.css" />
 
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap Link -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <!-- Bootstrap Link -->
 
+    <!-- Font Awesome Cdn -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <!-- Font Awesome Cdn -->
 
-<style>
-body {font-family: "Lato", sans-serif}
-.mySlides {display: none}
-</style>
-</head>
-<body>
-
-<!-- Navbar -->
-<div class="w3-top">
-  <div class="w3-bar w3-black w3-card">
-    <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="/" class="w3-bar-item w3-button w3-padding-large">HOME</a>
-    <a href="/about" class="w3-bar-item w3-button w3-padding-large w3-hide-small">ABOUT</a>
-   
-   
-    </div>
-    <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
-  </div>
-</div>
-
-<!-- Navbar on small screens (remove the onclick attribute if you want the navbar to always show on top of the content when clicking on the links) -->
-<div id="navDemo" class="w3-bar-block w3-black w3-hide w3-hide-large w3-hide-medium w3-top" style="margin-top:46px">
-  <a href="#band" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">BAND</a>
-  <a href="#tour" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">TOUR</a>
-  <a href="#contact" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">CONTACT</a>
-  <a href="#" class="w3-bar-item w3-button w3-padding-large" onclick="myFunction()">MERCH</a>
-</div>
-
-
-
- 
-  <!-- The Band Section -->
-  <div class="w3-container w3-content w3-center w3-padding-64" style="max-width:800px" id="band">
-    <h2 class="w3-wide">ABOUT</h2>
-    <p class="w3-opacity"><i>Kprototypes-clustering</i></p>
-    <h4 class="w3-justify"> โมเดล CatBoost เป็นวิธี Gradient Boosting ชนิดหนึ่งซึ่งถูกพัฒนาเพื่อจัดการกับข้อมูลจำพวกตัวแปรประเภทและเพิ่มประสิทธิภาพการทำงานในแบบจำลองเพื่อให้สามารถทำนายได้รวดเร็ว
-        ซึ่งข้อดีของ CatBoost
-        คือสามารถประมวลผลตัวแปรประเภทหมวดหมู่จากชุดข้อมูลที่โดยผ่านกระบวนการ
-        แปลงตัวแปรประเภทหมวดหมู่ให้เป็นค่าตัวเลข (One-Hot Encoding) แต่หากมีจำนวน
-        ของ ตัวแปรหมวดหมู่อาจพบปัญหาความลึกของต้นไม้ (Tree Depth) ที่มากเกินไป
-        ดังนั้น CatBoost จะใช้วิธีการทางสถิติในการประมวลผลตัวแปรประเภทหมวดหมู่
-        ซึ่งทำให้โมเดลนี้มีความแม่นยำในการจำแนกประเภทได้ดี นอกจากนี้ CatBoost
-        ยังสามารถช่วย ลดปัญหาการปรับแต่งตัวแปร (Hyperparameter Tuning),
-        ลดปัญหาข้อมูลที่มีความ ถูกต้องในการทำนายเป้าหมายสูงเกินไป (Overfitting)
-        และมีความรวดเร็วในการทนาย
-    
-    </h4>
-    
-    
-  </div>
-
-  
-
-  <!-- The Contact Section -->
-  <div class="w3-container w3-content w3-padding-64" style="max-width:800px" id="contact">
-    <h2 class="w3-wide w3-center">CONTACT</h2>
-    <p class="w3-opacity w3-center"><i></i></p>
-    <div class="w3-row w3-padding-32">
-      <div class="w3-col m6 w3-large w3-margin-bottom">
-        <i class="fa fa-map-marker" style="width:30px"></i> Bangkok, TH<br>
-        <i class="fa fa-phone" style="width:30px"></i> Phone: +00 151515<br>
-        <i class="fa fa-envelope" style="width:30px"> </i> Email: mail@mail.com<br>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+  </head>
+  <body>
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#"
+          ><span class="text-warning">S</span>WU</a
+        >
+        <button
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          class="navbar-toggler"
+          data-bs-target="#navbarSupportedContent"
+          data-bs-toggle="collapse"
+          type="button"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/about">About</a>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="w3-col m6">
-        <form action="/action_page.php" target="_blank">
-          <div class="w3-row-padding" style="margin:0 -16px 8px -16px">
-            <div class="w3-half">
-              <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
-            </div>
-            <div class="w3-half">
-              <input class="w3-input w3-border" type="text" placeholder="Email" required name="Email">
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Section Book Start -->
+
+    <section class="book" id="cluster">
+      <div class="container py-5">
+        <div class="row justify-content-center">
+          
+          <!-- K-Prototypes -->
+          <div class="col-md-6">
+            <div class="card shadow-lg p-3 mb-4 bg-white rounded">
+              <div class="card-body">
+                <h1 class="card-title text-primary text-center">K-Prototypes คืออะไร?</h1>
+                <p class="card-text">
+                  <strong>K-Prototypes</strong> เป็นอัลกอริธึมที่ใช้สำหรับ <strong>Clustering</strong> หรือการจัดกลุ่มข้อมูล 
+                  ซึ่งถูกออกแบบมาให้รองรับข้อมูลทั้ง <strong>เชิงตัวเลข (Numerical Data)</strong> และ <strong>เชิงหมวดหมู่ (Categorical Data)</strong> 
+                  ซึ่งแตกต่างจาก K-Means ที่รองรับเฉพาะข้อมูลตัวเลข และ K-Modes ที่รองรับเฉพาะข้อมูลหมวดหมู่
+                </p>
+                
+                <h5 class="text-primary">🔹 หลักการทำงานของ K-Prototypes</h5>
+                <ul>
+                  <li><strong>🔹</strong>ใช้แนวคิดของ <strong>K-Means</strong> สำหรับข้อมูลเชิงตัวเลข โดยใช้ระยะทาง <strong>Euclidean Distance</strong></li>
+                  <li><strong>🔹</strong>ใช้แนวคิดของ <strong>K-Modes</strong> สำหรับข้อมูลเชิงหมวดหมู่ โดยใช้ <strong>Hamming Distance</strong></li>
+                  <li><strong>🔹</strong>ใช้ค่า <strong>γ (Gamma)</strong> เป็นพารามิเตอร์เพื่อควบคุมความสำคัญของข้อมูลประเภทต่างๆ</li>
+                  <li><strong>🔹</strong>ทำการ <strong>อัปเดตศูนย์กลางกลุ่ม (Centroids)</strong> ตามลักษณะข้อมูลทั้งสองประเภท</li>
+                </ul>
+    
+                <h5 class="text-primary">🔹 การนำ K-Prototypes ไปใช้งาน</h5>
+                <p class="card-text">
+                  K-Prototypes ถูกใช้ในการวิเคราะห์ข้อมูลที่มีทั้งตัวเลขและหมวดหมู่ เช่น:
+                </p>
+                <ul>
+                  <li><strong>🔹Customer Segmentation</strong> - การแบ่งกลุ่มลูกค้าตามอายุ รายได้ เพศ และพฤติกรรมการซื้อ</li>
+                  <li><strong>🔹Healthcare Analysis</strong> - การวิเคราะห์ข้อมูลผู้ป่วยที่มีทั้งค่าตัวเลข (อายุ, ค่าความดัน) และหมวดหมู่ (โรค, เพศ)</li>
+                  <li><strong>🔹Market Research</strong> - การแบ่งกลุ่มผลิตภัณฑ์ที่มีคุณสมบัติทั้งตัวเลข (ราคา, คะแนนรีวิว) และหมวดหมู่ (ประเภทสินค้า)</li>
+                </ul>
+              </div>
             </div>
           </div>
-          <input class="w3-input w3-border" type="text" placeholder="Message" required name="Message">
-          <button class="w3-button w3-black w3-section w3-right" type="submit">SEND</button>
-        </form>
+    
+          <!-- CatBoost -->
+          <div class="col-md-6">
+            <div class="card shadow-lg p-3 mb-4 bg-white rounded">
+              <div class="card-body">
+                <h1 class="card-title text-success text-center">CatBoost Model คืออะไร?</h1>
+                <p class="card-text">
+                  <strong>CatBoost (Categorical Boosting)</strong> เป็นอัลกอริธึมสำหรับ <strong>Gradient Boosting Decision Trees (GBDT)</strong> 
+                  ที่พัฒนาโดย <strong>Yandex</strong> ซึ่งออกแบบมาให้สามารถ <strong>จัดการกับข้อมูลหมวดหมู่ (Categorical Data) ได้อย่างมีประสิทธิภาพ</strong> 
+                  โดยไม่จำเป็นต้องใช้ <strong>One-Hot Encoding</strong> หรือ <strong>Label Encoding</strong>
+                </p>
+    
+                <h5 class="text-success">🔹 จุดเด่นของ CatBoost</h5>
+                <ul>
+                  <li><strong>🔹Handling Categorical Data Efficiently</strong> - สามารถใช้เทคนิค <strong>Ordered Boosting</strong> 
+                    เพื่อจัดการข้อมูลหมวดหมู่ได้โดยไม่ต้องแปลงเป็นตัวเลขก่อน</li>
+                  <li><strong>🔹High Accuracy & Less Overfitting</strong> - มีการใช้ <strong>Oblivious Trees</strong> เพื่อลด Overfitting</li>
+                  <li><strong>🔹Fast Training Speed</strong> - สามารถทำงานได้เร็วกว่า XGBoost และ LightGBM โดยเฉพาะเมื่อต้องการจัดการข้อมูลขนาดใหญ่</li>
+                </ul>
+    
+                <h5 class="text-success">🔹 การนำ CatBoost ไปใช้งาน</h5>
+                <p class="card-text">
+                  CatBoost เหมาะสำหรับงานที่มีข้อมูลหมวดหมู่เป็นจำนวนมาก เช่น:
+                </p>
+                <ul>
+                  <li><strong>🔹Credit Scoring</strong> - การวิเคราะห์ความเสี่ยงของลูกค้าในการให้สินเชื่อ</li>
+                  <li><strong>🔹Customer Behavior Prediction</strong> - การพยากรณ์พฤติกรรมลูกค้า เช่น การยกเลิกบริการ</li>
+                  <li><strong>🔹E-commerce Recommendation</strong> - การสร้างระบบแนะนำสินค้าโดยพิจารณาจากข้อมูลหมวดหมู่ เช่น ประเภทสินค้า</li>
+                  <li><strong>🔹Stock & Real Estate Prediction</strong> - การวิเคราะห์ข้อมูลตลาดหุ้นและอสังหาริมทรัพย์ที่มีปัจจัยเชิงหมวดหมู่</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+           <!-- การนำ K-Prototypes + CatBoost มาใช้ -->
+      <div class="col-md-12">
+        <div class="card shadow-lg p-3 mb-4 bg-white rounded">
+          <div class="card-body">
+            <h1 class="card-title text-dark text-center">การนำ K-Prototypes และ CatBoost มาใช้ในโครงการ</h1>
+            <p class="card-text">
+              ในโครงการนี้ เราใช้ <strong>K-Prototypes</strong> และ <strong>CatBoost</strong> ร่วมกันเพื่อศึกษาการแบ่งกลุ่มข้อมูลและการพยากรณ์พฤติกรรม โดยมีขั้นตอนหลักดังนี้:
+            </p>
+
+            <h5 class="text-dark">🔹 1. หาจำนวนกลุ่มที่เหมาะสม</h5>
+            <ul>
+              <li>ใช้ <strong>Elbow Method</strong> และ <strong>Silhouette Score</strong> เพื่อเลือกจำนวนกลุ่ม (Optimal Clusters) ที่เหมาะสม</li>
+              <li>พิจารณาว่าโมเดลควรแบ่งกลุ่มออกเป็นกี่คลัสเตอร์เพื่อให้ได้ผลลัพธ์ที่แม่นยำที่สุด</li>
+            </ul>
+
+            <h5 class="text-dark">🔹 2. การแบ่งกลุ่มด้วย K-Prototypes</h5>
+            <ul>
+              <li>ใช้ <strong>K-Prototypes</strong> ทำการจัดกลุ่มข้อมูลที่มีทั้งตัวเลขและหมวดหมู่</li>
+              <li>ข้อมูลที่ถูกแบ่งกลุ่ม (Labels) จาก K-Prototypes จะถูกใช้ในขั้นตอนถัดไป</li>
+            </ul>
+
+            <h5 class="text-dark">🔹 3. ใช้ CatBoost เพื่อทำนายและวิเคราะห์ข้อมูล</h5>
+            <ul>
+              <li>นำข้อมูลที่แบ่งกลุ่มมาเป็น <strong>Target Variable</strong> เพื่อใช้ในโมเดล <strong>CatBoost</strong></li>
+              <li>โมเดล <strong>CatBoost</strong> จะถูกใช้เพื่อ <strong>ทำนายกลุ่มของข้อมูลใหม่</strong></li>
+            </ul>
+
+            <h5 class="text-dark">🔹 4. วิเคราะห์ Feature Importance และต้นไม้ของ CatBoost</h5>
+            <ul>
+              <li>ใช้ <strong>Feature Importance</strong> เพื่อวิเคราะห์ปัจจัยสำคัญที่มีผลต่อการแบ่งกลุ่ม</li>
+              <li>ศึกษา <strong>การนิยามกลุ่ม</strong> โดยดูโครงสร้างของต้นไม้ (Decision Trees) ที่ได้จาก CatBoost</li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  
-<!-- End Page Content -->
-</div>
-
-
-
-<footer class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge">
+    
+        </div>
+      </div>
+    </section>
     
     
-</footer>
+    
+    <!-- Section Book End -->
 
+    <!-- footer starts -->
+    <footer class="bg-dark p-2 text-center">
+      <div class="container">
+        <p class="text-white">All Right Reserved By @CP499 OreoKaiPla</p>
+      </div>
+    </footer>
+    <!-- footer ends -->
 
-
-
- 
-
-
-</body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="{{ url_for('static', filename='js/swiper-bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="../static/styles/style_resualtPage.css"></script>
+    <script src="..//static/js/main.js"></script>
+  </body>
 </html>

@@ -187,17 +187,17 @@
               </div>
             </div>
             
-            <div class="gender-details">
-              <input type="radio" name="gender" id="dot-1" />
+            <div class="gender-details" required>
+              <input type="radio" name="gender" id="dot-1" required/>
               <input type="radio" name="gender" value="M" id="dot-2" />
               <input type="radio" name="gender" value="F" id="dot-3" />
               <span class="gender-title">Gender</span>
-              <div class="category">
-                <label for="dot-1">
+              <div class="category" >
+                <label for="dot-1" >
                   <span class="dot one"></span>
                   <span class="gender">Male</span>
                 </label>
-                <label for="dot-2">
+                <label for="dot-2" >
                   <span class="dot two"></span>
                   <span class="gender">Female</span>
                 </label>
@@ -209,10 +209,10 @@
             </div>
           </form>
   
-          <form method="POST" enctype="multipart/form-data">
+          <form method="POST" enctype="multipart/form-data" required>
             <div class="input-box">
               <span class="details">Upload Excel File</span>
-              <input type="file" class="form-control" id="file" name="file" accept=".xlsx, .xls" />
+              <input type="file" class="form-control" id="file" name="file" accept=".xlsx, .xls" required/>
             </div>
             <div class="button">
               <input type="submit" name="file_submit" value="Submit Excel File" />

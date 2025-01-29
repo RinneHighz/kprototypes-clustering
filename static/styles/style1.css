@@ -195,7 +195,7 @@
       padding: 100px 0;
   }
   .carousel-item {
-      height: 100vh;
+      /* height: 100vh; */
       min-height: 300px;
   }
   .carousel-caption {

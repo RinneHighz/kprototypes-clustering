@@ -142,14 +142,7 @@
                   placeholder="Month On Book"
                 />
               </div>
-              <!-- <div class="input-box">
-                <span class="details"></span>
-                
-              </div> -->
-              
-
-              
-
+            
               
   
               
@@ -190,9 +183,8 @@
             </div>
             
             <div class="gender-details" required>
-              <input type="radio" name="gender" id="dot-1" required/>
-              <input type="radio" name="gender" value="M" id="dot-2" />
-              <input type="radio" name="gender" value="F" id="dot-3" />
+              <input type="radio" name="gender" value="M" id="dot-1" required/>
+              <input type="radio" name="gender" value="F" id="dot-2" />
               <span class="gender-title">Gender</span>
               <div class="category" >
                 <label for="dot-1" >
@@ -203,9 +195,16 @@
                   <span class="dot two"></span>
                   <span class="gender">Female</span>
                 </label>
-                <label for="dot-3"></label>
               </div>
             </div>
+            <div class="input-box">
+              <span class="details">Select Number of Clusters</span>
+              <select class="form-control" id="num_clusters" name="num_clusters" required>
+                <option value="3">3 Clusters</option>
+                <option value="4">4 Clusters</option>
+              </select>
+            </div>
+            
             <div class="button">
               <input type="submit" name="single_submit" value="Submit" />
             </div>

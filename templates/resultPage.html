@@ -154,7 +154,29 @@
 
 
     <!-- team starts -->
+
     <section class="team section-padding" id="team">
+      <div class="container">
+        <div class="section-header text-center pb-5">
+          <h2>Cluster Segmentation Criteria</h2>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card text-center p-4">
+              {% if cluster_description %}
+                <pre class="text-start">{{ cluster_description }}</pre>
+              {% else %}
+                <p>ไม่สามารถแสดงคำอธิบายได้ในขณะนี้</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+
+
+    <!-- <section class="team section-padding" id="team">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -164,7 +186,7 @@
           </div>
         </div>
         <div class="row">
-          <!-- Cluster 0 -->
+          Cluster 0
           <div class="col-12 col-md-6 col-lg-4">
             <div class="card text-center">
               <div class="card-body">
@@ -190,7 +212,7 @@
             </div>
           </div>
 
-          <!-- Cluster 1 -->
+          Cluster 1
           <div class="col-12 col-md-6 col-lg-4">
             <div class="card text-center">
               <div class="card-body">
@@ -218,7 +240,7 @@
             </div>
           </div>
 
-          <!-- Cluster 2 -->
+          Cluster 2
           <div class="col-12 col-md-6 col-lg-4">
             <div class="card text-center">
               <div class="card-body">
@@ -246,7 +268,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- footer starts -->
     <footer class="bg-dark p-2 text-center">

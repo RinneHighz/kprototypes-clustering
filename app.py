@@ -1,15 +1,28 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 import joblib
 import pandas as pd
 import json
 from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+import matplotlib
+matplotlib.use('Agg')  # ✅ ใช้ non-GUI backend
+import matplotlib.pyplot as plt
 
+from sklearn.preprocessing import MinMaxScaler
+from catboost import CatBoostClassifier
+import joblib
+import io
+import os
+import uuid
 
-# import openai
 import google.generativeai as genai
 
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB
+app.config['UPLOAD_FOLDER'] = "temp"
+
+
 
 
 @app.route("/", methods=["GET"])
@@ -26,12 +39,75 @@ def result():
 def about():
     return render_template("about.html")
 
-@app.route("/upload", methods=["GET", "POST"])
-def upload_and_train():
-    
+@app.route("/kmeans-analyze", methods=["GET", "POST"])
+def kmeans_analyze():
+    if request.method == "POST":
+        file = request.files["file"]
+        session_id = str(uuid.uuid4())
 
-    return render_template("upload.html")
+        if file.filename.endswith(".csv"):
+            df = pd.read_csv(file)
+        elif file.filename.endswith((".xlsx", ".xls")):
+            df = pd.read_excel(file)
+        else:
+            return "ไฟล์ไม่รองรับ"
 
+        df_pre = preprocess_for_kmeans(df)
+        silhouette_scores = {}
+        elbow_ks = list(range(1, 11))
+        distortions = []
+
+        for k in elbow_ks:
+            model = KMeans(n_clusters=k, init='k-means++', max_iter=300, n_init=10, random_state=42)
+            model.fit(df_pre)
+            distortions.append(model.inertia_)
+
+
+        for k in [3, 4]:
+            model = KMeans(n_clusters=k, max_iter=50, random_state=42, n_init=10)
+
+            labels = model.fit_predict(df_pre)
+            silhouette_scores[k] = silhouette_score(df_pre, labels)
+
+        # Save elbow graph
+        plt.figure()
+        plt.plot(elbow_ks, distortions, "bx-")
+        plt.xlabel("k")
+        plt.ylabel("Distortion")
+        plt.title("Elbow Method")
+        elbow_path = f"static/images/elbow_{session_id}.png"
+        plt.savefig(elbow_path)
+        plt.close()
+
+        # Save raw file to temp
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], f"{session_id}.csv")
+        os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+        df.to_csv(filepath, index=False)
+
+        return render_template("cluster_select.html",
+                               silhouette_scores=silhouette_scores,
+                               elbow_graph=elbow_path,
+                               session_id=session_id)
+    return render_template("upload_cluster.html")
+
+@app.route("/kmeans-download", methods=["POST"])
+def kmeans_download():
+    num_clusters = int(request.form["num_clusters"])
+    session_id = request.form["session_id"]
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], f"{session_id}.csv")
+    df = pd.read_csv(filepath)
+
+    df_pre = preprocess_for_kmeans(df)
+    model = KMeans(n_clusters=num_clusters, random_state=42)
+    df["Cluster"] = model.fit_predict(df_pre)
+
+    output = io.BytesIO()
+    df.to_excel(output, index=False)
+    output.seek(0)
+
+    return send_file(output,
+                     download_name=f"clustered_k{num_clusters}.xlsx",
+                     as_attachment=True)
 
 @app.route("/", methods=["POST"])
 def predict():
@@ -113,6 +189,25 @@ def predict():
         "resultPage.html", tables=tables, cluster_info=cluster_info_json
         # cluster_description=cluster_description
     )
+    
+
+def preprocess_for_kmeans(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
+
+    # 1. แยกคอลัมน์ numerical และ categorical
+    numerical_cols = df.select_dtypes(include=['number']).columns.tolist()
+    categorical_cols = df.select_dtypes(include=['object']).columns.tolist()
+
+    # 2. Scaling เฉพาะ numerical columns
+    scaler = MinMaxScaler()
+    df[numerical_cols] = scaler.fit_transform(df[numerical_cols])
+
+    # 3. Factorize ค่าที่เป็น Categorical (ไม่ scale)
+    for col in categorical_cols:
+        df[col], _ = pd.factorize(df[col])
+
+    return df
+
 
 
 # ตั้งค่า API Key

@@ -36,37 +36,8 @@
   </head>
   <body>
     <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" >
-      <div class="container" >
-        <a class="navbar-brand" href="#"
-          ><span class="text-warning">S</span>WU</a
-        >
-        <button
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-          class="navbar-toggler"
-          data-bs-target="#navbarSupportedContent"
-          data-bs-toggle="collapse"
-          type="button"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent" >
-          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/about">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#team">Cluster</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    {% include 'components/navbar.html' %}
+
     <!-- Navbar End -->
 
     <!-- Section Book Start -->
@@ -105,6 +76,42 @@
     </style>
     
     <!-- Section Book End -->
+     <!-- team starts -->
+
+
+    <section class="team section-padding" id="team">
+      <div class="container">
+        <div class="section-header text-center pb-5">
+          <h2>Cluster Segmentation Criteria</h2>
+        </div>
+        <div class="row">
+          {% if cluster_info %}
+            {% for cluster in cluster_info.clusters %}
+              <div class="col-12 col-md-6 col-lg-4">
+                <div class="card text-center">
+                  <div class="card-body">
+                    <h3 class="card-title py-2">{{ cluster.cluster }}</h3>
+                    <p class="card-text">
+                      <strong>{{ cluster.group_name }}</strong>
+                    </p>
+                    <p class="card-text">{{ cluster.description }}</p>
+                    <p class="card-text"><strong>เกณฑ์การแบ่งกลุ่ม:</strong></p>
+                    <ul class="text-start">
+                      {% for criterion in cluster.criteria %}
+                        <li>{{ criterion }}</li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          {% else %}
+            <p class="text-center">ไม่สามารถแสดงคำอธิบายได้ในขณะนี้</p>
+          {% endif %}
+        </div>
+      </div>
+    </section>
 
     <!-- Section Cluster Start -->
 <div class="carousel slide" style="background-color:#141519 ;" id="carouselExampleIndicators">
@@ -153,9 +160,10 @@
 </style>
 
 
-    <!-- team starts -->
+    
+    
 
-    <section class="team section-padding" id="team">
+    <!-- <section class="team section-padding" id="team">
       <div class="container">
         <div class="section-header text-center pb-5">
           <h2>Cluster Segmentation Criteria</h2>
@@ -172,7 +180,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
     
 
 
@@ -271,11 +279,7 @@
     </section> -->
 
     <!-- footer starts -->
-    <footer class="bg-dark p-2 text-center">
-      <div class="container">
-        <p class="text-white">All Right Reserved By @CP499 OreoKaiPla</p>
-      </div>
-    </footer>
+    {% include 'components/footer.html' %}
     <!-- footer ends -->
 
     <script

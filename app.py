@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request
 import joblib
 import pandas as pd
+import json
+from sklearn.cluster import KMeans
+
 
 # import openai
 import google.generativeai as genai
@@ -22,6 +25,12 @@ def result():
 @app.route("/about", methods=["GET"])
 def about():
     return render_template("about.html")
+
+@app.route("/upload", methods=["GET", "POST"])
+def upload_and_train():
+    
+
+    return render_template("upload.html")
 
 
 @app.route("/", methods=["POST"])
@@ -85,9 +94,13 @@ def predict():
 
     # ส่งให้ AI สรุปลักษณะกลุ่ม
     # cluster_description = summarize_clusters_from_tree(tree_text, int(num_clusters))
-    cluster_description = summarize_clusters_from_tree_with_gemini(
-        tree_text, int(num_clusters)
-    )
+    # cluster_description = summarize_clusters_from_tree_with_gemini(
+    #     tree_text, int(num_clusters)
+    # )
+    cluster_info = summarize_clusters_from_tree_with_gemini(tree_text, int(num_clusters))
+    cluster_info_json = json.loads(cluster_info)
+
+
 
     # เพิ่มคอลัมน์ Cluster ใน DataFrame
     data["Cluster"] = predictions
@@ -97,7 +110,8 @@ def predict():
 
     # ส่งข้อมูลไปยัง template
     return render_template(
-        "resultPage.html", tables=tables, cluster_description=cluster_description
+        "resultPage.html", tables=tables, cluster_info=cluster_info_json
+        # cluster_description=cluster_description
     )
 
 
@@ -115,26 +129,43 @@ def summarize_clusters_from_tree_with_gemini(tree_text, num_clusters):
 ฉันมีต้นไม้จากโมเดล CatBoost ที่ใช้ในการจำแนกลูกค้าออกเป็น {num_clusters} กลุ่ม (Cluster 0 ถึง {num_clusters - 1})
 ต้นไม้จะแสดงการแบ่งด้วยฟีเจอร์ต่าง ๆ เช่น รายได้, วงเงิน, จำนวนครั้งที่ทำรายการ ฯลฯ
 
-กรุณาช่วยสรุปลักษณะของแต่ละกลุ่ม (Cluster) ออกมาให้เข้าใจง่าย และแบ่งเป็นรูปแบบดังนี้:
+กรุณาช่วยสรุปลักษณะของแต่ละกลุ่ม (Cluster) ออกมาให้เข้าใจง่าย โดยตอบกลับมาในรูปแบบ JSON เท่านั้น ห้ามมีข้อความอื่นใดเพิ่มนอกเหนือจาก JSON เด็ดขาด และต้องเริ่มต้นด้วย '{{' และจบด้วย '}}' ตามนี้เท่านั้น:
 
----
+{{
+      "clusters": [
+        {{
+          "cluster": "Cluster 0",
+          "group_name": "ชื่อของกลุ่ม (สั้นๆ 3-7 คำ)",
+          "description": "ลักษณะของกลุ่มแบบสั้นๆ",
+          "criteria": [
+            "เกณฑ์ที่ 1 เช่น Credit Limit มากกว่า 3000",
+            "เกณฑ์ที่ 2 เช่น Max Income ต่ำกว่า 50000"
+          ]
+        }},
+        {{
+          "cluster": "Cluster 1",
+          "group_name": "ชื่อกลุ่ม",
+          "description": "ลักษณะโดยรวมของกลุ่ม",
+          "criteria": [
+            "คุณสมบัติที่ใช้แบ่งกลุ่มที่ 1",
+            "คุณสมบัติที่ใช้แบ่งกลุ่มที่ 2"
+          ]
+        }}
+        // Cluster ต่อไป...
+      ]
+    }}
 
-Cluster X  
-ลักษณะของกลุ่ม: <สรุปลักษณะสั้น ๆ>  
-เกณฑ์การแบ่งกลุ่ม:  
-- <เงื่อนไขจากต้นไม้ เช่น "Credit Limit มากกว่า 2110.5">  
-- <ฟีเจอร์ที่สำคัญอื่น ๆ>
+    ต้นไม้ที่ใช้แบ่งกลุ่ม:
+    {tree_text}
 
-(ช่วยเว้นบรรทัดระหว่างแต่ละ Cluster ด้วยนะ)
-
----
-
-ต้นไม้ที่ใช้:
-{tree_text}
+    กรุณาส่งเฉพาะ JSON เท่านั้น ไม่ต้องมีข้อความอื่นใดเพิ่มเติม
 """
 
     response = model.generate_content(prompt)
-    return response.text.strip() if response.text else "ไม่ได้รับคำตอบจาก Gemini"
+    test_text = response.text.strip().replace("```", "")
+    test_text = test_text.replace("json", "")
+    print(test_text)
+    return test_text if response.text else "ไม่ได้รับคำตอบจาก Gemini"
 
 
 if __name__ == "__main__":

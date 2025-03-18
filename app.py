@@ -5,9 +5,9 @@ import json
 from sklearn.cluster import KMeans
 from sklearn.metrics import silhouette_score
 import matplotlib
-matplotlib.use('Agg')  # ✅ ใช้ non-GUI backend
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from catboost import CatBoostClassifier
 import joblib
@@ -84,11 +84,11 @@ def kmeans_analyze():
         os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
         df.to_csv(filepath, index=False)
 
-        return render_template("cluster_select.html",
+        return render_template("clustering/cluster_select.html",
                                silhouette_scores=silhouette_scores,
                                elbow_graph=elbow_path,
                                session_id=session_id)
-    return render_template("upload_cluster.html")
+    return render_template("clustering/upload_cluster.html")
 
 @app.route("/kmeans-download", methods=["POST"])
 def kmeans_download():
@@ -98,7 +98,9 @@ def kmeans_download():
     df = pd.read_csv(filepath)
 
     df_pre = preprocess_for_kmeans(df)
-    model = KMeans(n_clusters=num_clusters, random_state=42)
+
+    model = KMeans(n_clusters=num_clusters, random_state=1)
+    
     df["Cluster"] = model.fit_predict(df_pre)
 
     output = io.BytesIO()
@@ -108,6 +110,59 @@ def kmeans_download():
     return send_file(output,
                      download_name=f"clustered_k{num_clusters}.xlsx",
                      as_attachment=True)
+
+
+@app.route("/catboost-train", methods=["GET", "POST"])
+def catboost_train():
+    if request.method == "POST":
+        file = request.files["file"]
+        if not file:
+            return "No file uploaded", 400
+
+        # Load file
+        if file.filename.endswith(".csv"):
+            df = pd.read_csv(file)
+        elif file.filename.endswith((".xlsx", ".xls")):
+            df = pd.read_excel(file)
+        else:
+            return "Unsupported file type", 400
+
+        if "Cluster" not in df.columns:
+            return "Missing 'Cluster' column in uploaded data", 400
+
+        # Separate features and label
+        X = df.drop(columns=["Cluster"])
+        y = df["Cluster"]
+
+        # Detect categorical columns
+        cat_features = X.select_dtypes(include=["object", "category"]).columns.tolist()
+
+        # Split
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+        # Train model
+        model = CatBoostClassifier(
+            depth=4,
+            iterations=200,
+            l2_leaf_reg=1,
+            learning_rate=0.01,
+            verbose=False
+        )
+        model.fit(X_train, y_train, cat_features=cat_features)
+
+        # Save model
+        model_id = str(uuid.uuid4())
+        model_path = f"temp/catboost_trained_{model_id}.pkl"
+        joblib.dump(model, model_path)
+
+        return render_template("train_catboost/catboost_success.html", model_path=model_path)
+
+    return render_template("train_catboost/upload_catboost.html")
+
+@app.route("/download-catboost-model/<filename>")
+def download_catboost_model(filename):
+    return send_file(f"temp/{filename}", as_attachment=True)
+
 
 @app.route("/", methods=["POST"])
 def predict():

@@ -115,96 +115,85 @@ def kmeans_download():
         output, download_name=f"clustered_k{num_clusters}.xlsx", as_attachment=True
     )
 
-
 @app.route("/catboost-train", methods=["GET", "POST"])
 def catboost_train():
     if request.method == "POST":
-        print("\n📥 [DEBUG] เริ่มรับไฟล์และโหลดข้อมูล")
-
         file = request.files["file"]
         if not file:
-            print("❌ [DEBUG] ไม่พบไฟล์")
             return "No file uploaded", 400
 
         # Load file
         if file.filename.endswith(".csv"):
-            df = pd.read_csv(file, dtype=str)  # ✅ ใช้ dtype=str
-            print("📄 [DEBUG] โหลด CSV แล้ว df.head():")
-            print(df.head())
-            print("🔍 dtypes หลังโหลด:\n", df.dtypes)
+            df = pd.read_csv(file, dtype=str)
         elif file.filename.endswith((".xlsx", ".xls")):
             df = pd.read_excel(file, dtype=str)
-            print("📄 [DEBUG] โหลด Excel แล้ว df.head():")
-            print(df.head())
-            print("🔍 dtypes หลังโหลด:\n", df.dtypes)
         else:
             return "Unsupported file type", 400
 
         if "Cluster" not in df.columns:
-            print("❌ [DEBUG] ไม่พบ column 'Cluster'")
             return "Missing 'Cluster' column in uploaded data", 400
 
         # Split features & label
         X = df.drop(columns=["Cluster"])
         y = df["Cluster"]
-        print("\n✅ [DEBUG] แยก X / y แล้ว:")
-        print("🧾 X.columns:", list(X.columns))
-        print("🎯 y ตัวอย่าง:", y.head().tolist())
 
-        # Detect categorical columns
-        cat_features = X.select_dtypes(include=["object", "category"]).columns.tolist()
-        print("\n🔎 [DEBUG] cat_features ที่ตรวจพบ:", cat_features)
-
-        # Convert only non-categorical columns
+        # ตรวจสอบ categorical columns
+        categorical_cols = X.select_dtypes(include=["object", "category"]).columns.tolist()
+        numeric_cols = []
         for col in X.columns:
-            if col not in cat_features:
-                X[col] = pd.to_numeric(X[col], errors="coerce")
+            try:
+                pd.to_numeric(X[col].dropna().iloc[0])
+                numeric_cols.append(col)
+            except:
+                pass
+        categorical_cols = [col for col in categorical_cols if col not in numeric_cols]
 
-        print("\n🔄 [DEBUG] dtypes หลัง convert numeric columns:")
-        print(X.dtypes)
+        # แปลง numeric columns จริงๆ
+        for col in numeric_cols:
+            X[col] = pd.to_numeric(X[col], errors="coerce")
 
-        # Split data
-        from sklearn.model_selection import train_test_split
-        X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=0.3, random_state=42
-        )
-        print("\n🧪 [DEBUG] ขนาดข้อมูลเทรน:", X_train.shape)
-        print("🧪 X_train.dtypes:\n", X_train.dtypes)
-        print("🧪 ตัวอย่าง X_train.head():\n", X_train.head())
+        # Train/test split
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+        for col in categorical_cols:
+            X_train[col] = X_train[col].astype('category')
+            X_test[col] = X_test[col].astype('category')
 
-        train_pool = Pool(X_train, y_train, cat_features=cat_features)
+        # สร้าง Pool เพื่อรักษา categorical ให้ถูกต้อง
+        train_pool = Pool(X_train, y_train, cat_features=categorical_cols)
 
-
-
-        # Train model
-        print("\n🚀 [DEBUG] เริ่มเทรน CatBoostClassifier")
+        # Train CatBoost model
         model = CatBoostClassifier(
             depth=4,
             iterations=200,
             l2_leaf_reg=1,
             learning_rate=0.01,
-            verbose=False
+            verbose=False, 
+            cat_features=categorical_cols
         )
-        model.fit(train_pool)  # ✅ ใช้ Pool ตรงนี้แทน
-        print("✅ [DEBUG] เทรนเสร็จ")
+        print("\n--- Debug ก่อนเข้าโมเดล CatBoost ---")
+        print("Categorical Features:", categorical_cols)
+        print("ตัวอย่างข้อมูล (X_train.head()):")
+        print(X_train.head())
+        print("dtype ของแต่ละฟีเจอร์ (X_train.dtypes):")
+        print(X_train.dtypes)
+        print("Categorical feature indices ใน Pool:")
+        print(train_pool.get_cat_feature_indices())
 
-        # Save model
+        model.fit(train_pool)
+
+        # Save model และข้อมูลที่จำเป็น
         model_id = str(uuid.uuid4())
         model_dir = "static/models"
         os.makedirs(model_dir, exist_ok=True)
         model_path = f"{model_dir}/catboost_trained_{model_id}.pkl"
         joblib.dump(model, model_path)
-        print("💾 [DEBUG] บันทึกโมเดลแล้ว:", model_path)
 
-        # Save feature columns
+        # บันทึก columns และ categorical values
         columns_path = f"{model_dir}/columns_{model_id}.json"
         with open(columns_path, "w") as f:
             json.dump(X.columns.tolist(), f)
 
-        # Save cat values
-        cat_values_map = {}
-        for col in cat_features:
-            cat_values_map[col] = sorted(df[col].dropna().unique().tolist())
+        cat_values_map = {col: sorted(X[col].dropna().unique().tolist()) for col in categorical_cols}
         cat_values_path = f"{model_dir}/cat_values_{model_id}.json"
         with open(cat_values_path, "w") as f:
             json.dump(cat_values_map, f)
@@ -212,20 +201,16 @@ def catboost_train():
         # Save training data
         train_data_path = f"{model_dir}/train_data_{model_id}.csv"
         df.to_csv(train_data_path, index=False)
-        print("📦 [DEBUG] บันทึกข้อมูลต้นฉบับแล้ว:", train_data_path)
 
-        # Export tree for Gemini
-        print("\n🌳 [DEBUG] เตรียมสร้าง tree จาก Pool")
-        train_pool = Pool(X_train, y_train, cat_features=cat_features)
+        # 🎉 Export model เป็น JSON ไว้ให้ Gemini ใช้งานต่อ
+        model_json_path = f"{model_dir}/catboost_model_{model_id}.json"
+        model.save_model(model_json_path, format="json")
 
-        print("📦 [DEBUG] ตัวอย่าง Pool (X_train head):")
-        print(X_train.head())
-
+        # Optional: Export tree เป็น text (.txt) สำหรับ Gemini เช่นเดิม (ถ้ายังต้องการใช้)
         graph = model.plot_tree(tree_idx=0, pool=train_pool)
         tree_text_path = f"{model_dir}/tree_text_{model_id}.txt"
         with open(tree_text_path, "w", encoding="utf-8") as f_out:
             f_out.write(graph.source)
-        print("✅ [DEBUG] export tree เสร็จ:", tree_text_path)
 
         return redirect(url_for("predict_now", model_id=model_id))
 
@@ -245,7 +230,8 @@ def predict_now(model_id):
     model_path = f"static/models/catboost_trained_{model_id}.pkl"
     columns_path = f"static/models/columns_{model_id}.json"
     cat_values_path = f"static/models/cat_values_{model_id}.json"
-    tree_text_path = f"static/models/tree_text_{model_id}.txt"
+    # tree_text_path = f"static/models/tree_text_{model_id}.txt"
+    tree_text_path = f"static/models/catboost_model_{model_id}.json"
 
     # Load columns
     if not os.path.exists(columns_path):
@@ -266,8 +252,13 @@ def predict_now(model_id):
     # Load pre-rendered tree text
     if not os.path.exists(tree_text_path):
         return "Tree explanation file not found", 404
+    # with open(tree_text_path, "r", encoding="utf-8") as f:
+    #     dot_content = f.read()
     with open(tree_text_path, "r", encoding="utf-8") as f:
-        dot_content = f.read()
+        dot_content = json.load(f)
+    
+    dot_content = json.dumps(dot_content)
+    
 
     # Generate cluster explanation
     cluster_info = summarize_clusters_from_tree_with_gemini(dot_content, num_clusters=3)

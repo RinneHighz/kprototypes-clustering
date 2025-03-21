@@ -6,8 +6,7 @@
     <title>CP499 About</title>
 
     <link rel="stylesheet" href="../static/styles/style1.css" />
-    <link rel="icon" href="../static/images/SWU.ico">
-
+    <link rel="icon" href="../static/images/SWU.ico" />
 
     <!-- Bootstrap Link -->
     <link
@@ -33,6 +32,22 @@
       rel="stylesheet"
     />
     <!-- Google Fonts -->
+
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        background-color: #f9f9f9;
+
+      }
+
+      main {
+        flex: 1;
+      }
+    </style>
   </head>
   <body>
     <!-- Navbar Start -->
@@ -40,120 +55,131 @@
 
     <!-- Navbar End -->
 
-    <!-- Section Book Start -->
+    <main>
+      <!-- Section Book Start -->
 
-    <section class="book" id="cluster">
-      <div class="container py-5">
-        <div class="row justify-content-center">
-          
-          <!-- K-Prototypes -->
-          <div class="col-md-6">
-            <div class="card shadow-lg p-3 mb-4 bg-white rounded">
-              <div class="card-body">
-                <h1 class="card-title text-primary text-center">K-Prototypes คืออะไร?</h1>
-                <p class="card-text">
-                  <strong>K-Prototypes</strong> เป็นอัลกอริธึมที่ใช้สำหรับ <strong>Clustering</strong> หรือการจัดกลุ่มข้อมูล 
-                  ซึ่งถูกออกแบบมาให้รองรับข้อมูลทั้ง <strong>เชิงตัวเลข (Numerical Data)</strong> และ <strong>เชิงหมวดหมู่ (Categorical Data)</strong> 
-                  ซึ่งแตกต่างจาก K-Means ที่รองรับเฉพาะข้อมูลตัวเลข และ K-Modes ที่รองรับเฉพาะข้อมูลหมวดหมู่
-                </p>
-                
-                <h5 class="text-primary">🔹 หลักการทำงานของ K-Prototypes</h5>
-                <ul>
-                  <li><strong>🔹</strong>ใช้แนวคิดของ <strong>K-Means</strong> สำหรับข้อมูลเชิงตัวเลข โดยใช้ระยะทาง <strong>Euclidean Distance</strong></li>
-                  <li><strong>🔹</strong>ใช้แนวคิดของ <strong>K-Modes</strong> สำหรับข้อมูลเชิงหมวดหมู่ โดยใช้ <strong>Hamming Distance</strong></li>
-                  <li><strong>🔹</strong>ใช้ค่า <strong>γ (Gamma)</strong> เป็นพารามิเตอร์เพื่อควบคุมความสำคัญของข้อมูลประเภทต่างๆ</li>
-                  <li><strong>🔹</strong>ทำการ <strong>อัปเดตศูนย์กลางกลุ่ม (Centroids)</strong> ตามลักษณะข้อมูลทั้งสองประเภท</li>
+      <section class="book" id="cluster">
+        <div class="container py-5">
+          <div class="row g-4 justify-content-center">
+            <!-- K-Prototypes -->
+            <div class="col-md-6">
+              <div class="card shadow-sm h-100">
+                <div class="card-body">
+                  <h5 class="card-title text-primary text-center">
+                    K-Prototypes คืออะไร?
+                  </h5>
+                  <p class="card-text">
+                    <strong>K-Prototypes</strong> ใช้สำหรับ
+                    <strong>Clustering</strong>
+                    ข้อมูลทั้งเชิงตัวเลขและเชิงหมวดหมู่ ซึ่งต่างจาก K-Means และ
+                    K-Modes
+                  </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    🔹 ใช้ <strong>Euclidean Distance</strong> กับข้อมูลตัวเลข
+                  </li>
+                  <li class="list-group-item">
+                    🔹 ใช้ <strong>Hamming Distance</strong> กับข้อมูลหมวดหมู่
+                  </li>
+                  <li class="list-group-item">
+                    🔹 ใช้ <strong>γ (Gamma)</strong> เพื่อควบคุมน้ำหนักข้อมูล
+                  </li>
+                  <li class="list-group-item">
+                    🔹 อัปเดต Centroids ตามข้อมูลผสม
+                  </li>
                 </ul>
-    
-                <h5 class="text-primary">🔹 การนำ K-Prototypes ไปใช้งาน</h5>
-                <p class="card-text">
-                  K-Prototypes ถูกใช้ในการวิเคราะห์ข้อมูลที่มีทั้งตัวเลขและหมวดหมู่ เช่น:
-                </p>
-                <ul>
-                  <li><strong>🔹Customer Segmentation</strong> - การแบ่งกลุ่มลูกค้าตามอายุ รายได้ เพศ และพฤติกรรมการซื้อ</li>
-                  <li><strong>🔹Healthcare Analysis</strong> - การวิเคราะห์ข้อมูลผู้ป่วยที่มีทั้งค่าตัวเลข (อายุ, ค่าความดัน) และหมวดหมู่ (โรค, เพศ)</li>
-                  <li><strong>🔹Market Research</strong> - การแบ่งกลุ่มผลิตภัณฑ์ที่มีคุณสมบัติทั้งตัวเลข (ราคา, คะแนนรีวิว) และหมวดหมู่ (ประเภทสินค้า)</li>
+                <div class="card-body">
+                  <p class="card-text">
+                    <strong>การใช้งาน</strong>: Customer Segmentation,
+                    Healthcare, Market Research
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- CatBoost -->
+            <div class="col-md-6">
+              <div class="card shadow-sm h-100">
+                <div class="card-body">
+                  <h5 class="card-title text-success text-center">
+                    CatBoost Model คืออะไร?
+                  </h5>
+                  <p class="card-text">
+                    <strong>CatBoost</strong> คืออัลกอริธึม GBDT
+                    ที่รองรับข้อมูลหมวดหมู่โดยไม่ต้องแปลงค่า
+                    เหมาะกับงานที่มีข้อมูล categorical เยอะ
+                  </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    🔹 ใช้ <strong>Ordered Boosting</strong> จัดการ categorical
+                    โดยตรง
+                  </li>
+                  <li class="list-group-item">
+                    🔹 ใช้ <strong>Oblivious Trees</strong> ลด Overfitting
+                  </li>
+                  <li class="list-group-item">🔹 เทรนเร็ว และแม่นยำ</li>
                 </ul>
+                <div class="card-body">
+                  <p class="card-text">
+                    <strong>การใช้งาน</strong>: Credit Scoring, Customer
+                    Prediction, E-commerce Recommender
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- การนำ K-Prototypes + CatBoost มาใช้ -->
+            <div class="col-md-12">
+              <div class="card shadow-sm h-100">
+                <div class="card-body">
+                  <h5 class="card-title text-center text-dark">
+                    การนำ K-Prototypes และ CatBoost มาใช้ในโครงการ
+                  </h5>
+                  <p class="card-text">
+                    โครงการนี้ผสานทั้ง Clustering และ Prediction ดังนี้:
+                  </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    🔹 <strong>1. หาจำนวนกลุ่ม</strong>: ใช้ Elbow & Silhouette
+                    เพื่อเลือกจำนวนคลัสเตอร์
+                  </li>
+                  <li class="list-group-item">
+                    🔹 <strong>2. Cluster ด้วย K-Prototypes</strong>:
+                    จัดกลุ่มข้อมูลทั้งตัวเลข/หมวดหมู่
+                  </li>
+                  <li class="list-group-item">
+                    🔹 <strong>3. เทรน CatBoost</strong>: ใช้กลุ่มที่ได้จาก
+                    K-Prototypes เป็น target variable
+                  </li>
+                  <li class="list-group-item">
+                    🔹
+                    <strong>4. วิเคราะห์ Feature Importance & ต้นไม้</strong>:
+                    เพื่อเข้าใจลักษณะของแต่ละกลุ่ม
+                  </li>
+                </ul>
+                <div class="card-body">
+                  <p class="card-text text-muted">
+                    ช่วยให้วิเคราะห์กลุ่มลูกค้าและทำนายได้แม่นยำยิ่งขึ้น
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-    
-          <!-- CatBoost -->
-          <div class="col-md-6">
-            <div class="card shadow-lg p-3 mb-4 bg-white rounded">
-              <div class="card-body">
-                <h1 class="card-title text-success text-center">CatBoost Model คืออะไร?</h1>
-                <p class="card-text">
-                  <strong>CatBoost (Categorical Boosting)</strong> เป็นอัลกอริธึมสำหรับ <strong>Gradient Boosting Decision Trees (GBDT)</strong> 
-                  ที่พัฒนาโดย <strong>Yandex</strong> ซึ่งออกแบบมาให้สามารถ <strong>จัดการกับข้อมูลหมวดหมู่ (Categorical Data) ได้อย่างมีประสิทธิภาพ</strong> 
-                  โดยไม่จำเป็นต้องใช้ <strong>One-Hot Encoding</strong> หรือ <strong>Label Encoding</strong>
-                </p>
-    
-                <h5 class="text-success">🔹 จุดเด่นของ CatBoost</h5>
-                <ul>
-                  <li><strong>🔹Handling Categorical Data Efficiently</strong> - สามารถใช้เทคนิค <strong>Ordered Boosting</strong> 
-                    เพื่อจัดการข้อมูลหมวดหมู่ได้โดยไม่ต้องแปลงเป็นตัวเลขก่อน</li>
-                  <li><strong>🔹High Accuracy & Less Overfitting</strong> - มีการใช้ <strong>Oblivious Trees</strong> เพื่อลด Overfitting</li>
-                  <li><strong>🔹Fast Training Speed</strong> - สามารถทำงานได้เร็วกว่า XGBoost และ LightGBM โดยเฉพาะเมื่อต้องการจัดการข้อมูลขนาดใหญ่</li>
-                </ul>
-    
-                <h5 class="text-success">🔹 การนำ CatBoost ไปใช้งาน</h5>
-                <p class="card-text">
-                  CatBoost เหมาะสำหรับงานที่มีข้อมูลหมวดหมู่เป็นจำนวนมาก เช่น:
-                </p>
-                <ul>
-                  <li><strong>🔹Credit Scoring</strong> - การวิเคราะห์ความเสี่ยงของลูกค้าในการให้สินเชื่อ</li>
-                  <li><strong>🔹Customer Behavior Prediction</strong> - การพยากรณ์พฤติกรรมลูกค้า เช่น การยกเลิกบริการ</li>
-                  <li><strong>🔹E-commerce Recommendation</strong> - การสร้างระบบแนะนำสินค้าโดยพิจารณาจากข้อมูลหมวดหมู่ เช่น ประเภทสินค้า</li>
-                  <li><strong>🔹Stock & Real Estate Prediction</strong> - การวิเคราะห์ข้อมูลตลาดหุ้นและอสังหาริมทรัพย์ที่มีปัจจัยเชิงหมวดหมู่</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-           <!-- การนำ K-Prototypes + CatBoost มาใช้ -->
-      <div class="col-md-12">
-        <div class="card shadow-lg p-3 mb-4 bg-white rounded">
-          <div class="card-body">
-            <h1 class="card-title text-dark text-center">การนำ K-Prototypes และ CatBoost มาใช้ในโครงการ</h1>
-            <p class="card-text">
-              ในโครงการนี้ เราใช้ <strong>K-Prototypes</strong> และ <strong>CatBoost</strong> ร่วมกันเพื่อศึกษาการแบ่งกลุ่มข้อมูลและการพยากรณ์พฤติกรรม โดยมีขั้นตอนหลักดังนี้:
-            </p>
-
-            <h5 class="text-dark">🔹 1. หาจำนวนกลุ่มที่เหมาะสม</h5>
-            <ul>
-              <li>ใช้ <strong>Elbow Method</strong> และ <strong>Silhouette Score</strong> เพื่อเลือกจำนวนกลุ่ม (Optimal Clusters) ที่เหมาะสม</li>
-              <li>พิจารณาว่าโมเดลควรแบ่งกลุ่มออกเป็นกี่คลัสเตอร์เพื่อให้ได้ผลลัพธ์ที่แม่นยำที่สุด</li>
-            </ul>
-
-            <h5 class="text-dark">🔹 2. การแบ่งกลุ่มด้วย K-Prototypes</h5>
-            <ul>
-              <li>ใช้ <strong>K-Prototypes</strong> ทำการจัดกลุ่มข้อมูลที่มีทั้งตัวเลขและหมวดหมู่</li>
-              <li>ข้อมูลที่ถูกแบ่งกลุ่ม (Labels) จาก K-Prototypes จะถูกใช้ในขั้นตอนถัดไป</li>
-            </ul>
-
-            <h5 class="text-dark">🔹 3. ใช้ CatBoost เพื่อทำนายและวิเคราะห์ข้อมูล</h5>
-            <ul>
-              <li>นำข้อมูลที่แบ่งกลุ่มมาเป็น <strong>Target Variable</strong> เพื่อใช้ในโมเดล <strong>CatBoost</strong></li>
-              <li>โมเดล <strong>CatBoost</strong> จะถูกใช้เพื่อ <strong>ทำนายกลุ่มของข้อมูลใหม่</strong></li>
-            </ul>
-
-            <h5 class="text-dark">🔹 4. วิเคราะห์ Feature Importance และต้นไม้ของ CatBoost</h5>
-            <ul>
-              <li>ใช้ <strong>Feature Importance</strong> เพื่อวิเคราะห์ปัจจัยสำคัญที่มีผลต่อการแบ่งกลุ่ม</li>
-              <li>ศึกษา <strong>การนิยามกลุ่ม</strong> โดยดูโครงสร้างของต้นไม้ (Decision Trees) ที่ได้จาก CatBoost</li>
-            </ul>
-          </div>
         </div>
-      </div>
-    
-        </div>
-      </div>
-    </section>
-    
-    
-    
-    <!-- Section Book End -->
+      </section>
+
+      <!-- Section Book End -->
+    </main>
+
+    <style>
+      .card:hover {
+        transform: none !important;
+        transition: none !important;
+      }
+    </style>
 
     <!-- footer starts -->
     {% include 'components/footer.html' %}

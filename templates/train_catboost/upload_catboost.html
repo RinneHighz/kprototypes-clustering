@@ -30,26 +30,63 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
       rel="stylesheet"
     />
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        background-color: #f9f9f9;
+
+      }
+    
+      main {
+        flex: 1;
+      }
+    </style>
   </head>
 
   <body>
     <!-- Navbar Start -->
     {% include 'components/navbar.html' %}
     <!-- Navbar End -->
-
+    <main>
     <!-- Section Upload & Train Start -->
     <section class="book" id="upload">
-      <h2>Upload CSV/XLSX with Cluster column to train CatBoost</h2>
-      <form
-        method="POST"
-        enctype="multipart/form-data"
-        action="/catboost-train"
-      >
-        <input type="file" name="file" accept=".csv,.xlsx" required />
-        <button type="submit">Train CatBoost</button>
-      </form>
+      <div class="container">
+        <div class="main-text">
+          <h1><span>Upload your data</span> to train CatBoost model</h1>
+        </div>
+        <div class="row">
+          <div class="col-md-12 py-3 py-md-0">
+            <div class="content">
+              <form
+                method="POST"
+                enctype="multipart/form-data"
+                action="/catboost-train"
+              >
+                <div class="input-box">
+                  <span class="details">Select CSV or XLSX file (with Cluster column)</span>
+                  <input
+                    type="file"
+                    name="file"
+                    accept=".csv,.xlsx"
+                    class="form-control"
+                    required
+                  />
+                </div>
+
+                <div class="button mt-3">
+                  <input type="submit" value="Train CatBoost" />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
     <!-- Section Upload & Train End -->
+  </main>
 
     <!-- Footer -->
     {% include 'components/footer.html' %}

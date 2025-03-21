@@ -268,10 +268,22 @@ def predict_now(model_id):
         cluster_info_json = None
 
     # Handle prediction
-    result = None
+    # result = None
+    tables = None  # ✅ แก้ตรงนี้
+
     if request.method == "POST":
-        input_data = {col: request.form[col] for col in feature_columns}
-        df_input = pd.DataFrame([input_data])
+        if "file" in request.files and request.files["file"].filename != "":
+            file = request.files["file"]
+            if file.filename.endswith(".csv"):
+                df_input = pd.read_csv(file)
+            elif file.filename.endswith((".xlsx", ".xls")):
+                df_input = pd.read_excel(file)
+            else:
+                return "Unsupported file format", 400
+        else:
+            input_data = {col: request.form[col] for col in feature_columns}
+            df_input = pd.DataFrame([input_data])
+
 
         for col in df_input.columns:
             if col not in cat_features:
@@ -280,18 +292,24 @@ def predict_now(model_id):
                 except:
                     pass
 
-        result = model.predict(df_input)[0]
+        predictions = model.predict(df_input)
+        df_input["Cluster"] = predictions.ravel()
+
+        tables = df_input.to_html(
+            classes="table table-bordered table-striped text-center align-middle",
+            index=False,
+            border=0
+        )
+
 
     return render_template(
         "predict/predict_now.html",
         model_id=model_id,
         columns=feature_columns,
         cat_values=cat_values,
-        result=result,
+        tables=tables,
         cluster_info=cluster_info_json
     )
-
-
 
 @app.route("/", methods=["POST"])
 def predict():
@@ -366,7 +384,14 @@ def predict():
     data["Cluster"] = predictions
 
     # แปลง DataFrame เป็น HTML ตาราง
-    tables = data.to_html(classes="data", header="true", index=False)
+    # tables = data.to_html(classes="data", header="true", index=False)
+    tables = data.to_html(
+        classes="table table-bordered table-striped text-center align-middle",  # Bootstrap classes
+        index=False,
+        border=0,
+        justify='center'
+    )
+
 
     # ส่งข้อมูลไปยัง template
     return render_template(

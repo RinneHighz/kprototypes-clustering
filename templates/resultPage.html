@@ -50,13 +50,13 @@
           <div class="col-md-12 py-3 py-md-0 d-flex justify-content-center">
             <section class="text-center">
               <div class="table-responsive mx-auto">
-                <table class="table table-bordered table-striped text-center align-middle">
-                  {% if tables %} 
-                    {{ tables|safe }} 
-                  {% else %}
-                    <p>No data to display.</p>
-                  {% endif %}
-                </table>
+                  <div class="table-responsive">
+                    {% if tables %}
+                      {{ tables|safe }}
+                    {% else %}
+                      <p>No data to display.</p>
+                    {% endif %}
+                  </div>
               </div>
             </section>
           </div>

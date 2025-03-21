@@ -37,57 +37,114 @@
     {% include 'components/navbar.html' %}
     <!-- Navbar End -->
 
-    <!-- Section Upload & Train Start -->
+    <!-- Section Predict Start -->
     <section class="book" id="upload">
-      <h2>Predict using Model</h2>
+      <div class="container-fluid px-4 py-5">
+        <div class="main-text mb-4 text-center">
+          <h1><span>Predict</span> Using Trained CatBoost Model</h1>
+        </div>
 
-      <<form method="POST">
-        {% for col in columns %}
-          <label>{{ col }}:</label>
-          {% if col in cat_values %}
-            <select name="{{ col }}" required>
-              {% for val in cat_values[col] %}
-                <option value="{{ val }}">{{ val }}</option>
-              {% endfor %}
-            </select>
-          {% else %}
-            <input type="text" name="{{ col }}" required>
-          {% endif %}
-          <br>
-        {% endfor %}
-      
-        <button type="submit">Predict</button>
-      
-        <!-- ✅ ปุ่มดาวน์โหลดโมเดล -->
-        <a href="{{ url_for('download_catboost_model', filename='catboost_trained_' + model_id + '.pkl') }}"
-           class="btn btn-secondary" style="margin-left: 10px;">
-          Download Model
-        </a>
-      </form>
-      
-      {% if result is defined %}
-        <h3>Prediction Result: Cluster {{ result }}</h3>
-      {% endif %}
-      
-      {% if cluster_info %}
-        <h3>Cluster Explanation:</h3>
-        <ul>
-          {% for cluster in cluster_info.clusters %}
-            <li>
-              <strong>{{ cluster.cluster }} - {{ cluster.group_name }}</strong>: {{ cluster.description }}
-              <ul>
-                {% for crit in cluster.criteria %}
-                  <li>{{ crit }}</li>
-                {% endfor %}
-              </ul>
-            </li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-      
-      
+        <div class="row justify-content-center">
+          <div class="col-md-10 col-lg-8">
+            <div class="content">
+              <form method="POST">
+                <div class="user-details">
+                  {% for col in columns %}
+                  <div class="input-box mb-3">
+                    <span class="details">{{ col }}</span>
+                    {% if col in cat_values %}
+                    <select name="{{ col }}" class="form-control" required>
+                      <option value="" disabled selected>
+                        -- Select {{ col }} --
+                      </option>
+
+                      {% for val in cat_values[col] %}
+                      <option value="{{ val }}">{{ val }}</option>
+                      {% endfor %}
+                    </select>
+                    {% else %}
+                    <input
+                      type="text"
+                      name="{{ col }}"
+                      class="form-control"
+                      required
+                    />
+                    {% endif %}
+                  </div>
+                  {% endfor %}
+                </div>
+
+                <div class="d-flex flex-wrap gap-3 mt-4">
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-robot me-1"></i> Predict
+                  </button>
+
+                  <a
+                    href="{{ url_for('download_catboost_model', filename='catboost_trained_' + model_id + '.pkl') }}"
+                    class="btn btn-secondary"
+                  >
+                    <i class="fas fa-download me-1"></i> Download Model
+                  </a>
+                </div>
+              </form>
+              <form method="POST" enctype="multipart/form-data" class="mb-5">
+                <div class="input-box mb-3">
+                  <span class="details">Upload CSV or Excel</span>
+                  <input
+                    type="file"
+                    name="file"
+                    accept=".csv, .xlsx"
+                    class="form-control"
+                    required
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-upload me-1"></i> Predict from File
+                </button>
+              </form>
+
+              {% if tables %}
+              <div class="mt-5">
+                <h4 class="text-center mb-3">Prediction Results</h4>
+                <div class="table-responsive">
+                  <table
+                    class="table table-bordered table-striped text-center align-middle"
+                  >
+                    {{ tables|safe }}
+                  </table>
+                </div>
+              </div>
+              {% endif %} {% if cluster_info %}
+              <div class="mt-5">
+                <h4 class="mb-4">Cluster Explanation:</h4>
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                  {% for cluster in cluster_info.clusters %}
+                  <div class="col">
+                    <div class="card h-100 shadow-sm">
+                      <div class="card-body">
+                        <h5 class="card-title">
+                          Cluster {{ cluster.cluster }} - {{ cluster.group_name
+                          }}
+                        </h5>
+                        <p class="card-text">{{ cluster.description }}</p>
+                        <ul class="list-group list-group-flush">
+                          {% for crit in cluster.criteria %}
+                          <li class="list-group-item">{{ crit }}</li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
-    <!-- Section Upload & Train End -->
+    <!-- Section Predict End -->
 
     <!-- Footer -->
     {% include 'components/footer.html' %}

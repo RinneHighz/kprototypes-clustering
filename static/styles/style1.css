@@ -8,6 +8,7 @@
     font-family: 'Lato', sans-serif;
 }
 
+
 /* Navbar Start */
 #navbar{
     background: #aa4d4d;
@@ -48,8 +49,6 @@
 /* Navbar End */
 
 
-
-
 /* Section Book Start */
 .book{
     background: #f9f9f9;
@@ -70,7 +69,8 @@
 .book .row{
     margin-top: 30px;
 }
-.book form input{
+
+/* .book form input{
     padding: 10px;
     color: black;
     border: none;
@@ -78,7 +78,7 @@
     font-size: 15px;
     border-radius: 10px;
     box-shadow: 0px 5px 5px -6px black;
-}
+} */
 
 
 .book .submit:hover{

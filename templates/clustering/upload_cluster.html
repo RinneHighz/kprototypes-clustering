@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Upload & Train - CP499</title>
+    <title>Upload File - CP499</title>
 
     <link rel="stylesheet" href="../static/styles/style1.css" />
     <link rel="icon" href="../static/images/SWU.ico" />
@@ -30,6 +30,20 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
       rel="stylesheet"
     />
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        background-color: #f9f9f9;
+
+      }
+    
+      main {
+        flex: 1;
+      }
+    </style>
   </head>
 
   <body>
@@ -37,20 +51,46 @@
     {% include 'components/navbar.html' %}
     <!-- Navbar End -->
 
-    <!-- Section Upload & Train Start -->
+    <main>
+    <!-- Section Upload Start -->
     <section class="book" id="upload">
-      <h2>Upload File for Clustering</h2>
-      <form
-        method="POST"
-        enctype="multipart/form-data"
-        action="/kmeans-analyze"
-      >
-        <input type="file" name="file" accept=".csv, .xlsx" required />
-        <button type="submit">Analyze</button>
-      </form>
-    </section>
-    <!-- Section Upload & Train End -->
+      <div class="container py-5">
+        <div class="main-text mb-4 text-center">
+          <h1><span>Upload</span> File for K-Means Clustering</h1>
+        </div>
 
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-6">
+            <div class="content">
+              <form
+                method="POST"
+                enctype="multipart/form-data"
+                action="/kmeans-analyze"
+              >
+                <div class="input-box mb-3">
+                  <span class="details">Select CSV or Excel File</span>
+                  <input
+                    type="file"
+                    name="file"
+                    accept=".csv, .xlsx"
+                    class="form-control"
+                    required
+                  />
+                </div>
+
+                <div class="button mt-3 text-center">
+                  <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-chart-line me-2"></i>Analyze
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Section Upload End -->
+    </main>
     <!-- Footer -->
     {% include 'components/footer.html' %}
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Upload & Train - CP499</title>
+    <title>Predict - CP499</title>
 
     <link rel="stylesheet" href="../static/styles/style1.css" />
     <link rel="icon" href="../static/images/SWU.ico" />
@@ -39,21 +39,53 @@
 
     <!-- Section Upload & Train Start -->
     <section class="book" id="upload">
-      <h2>CatBoost Model Trained Successfully!</h2>
+      <h2>Predict using Model</h2>
 
-      <a
-        href="{{ url_for('download_catboost_model', filename=model_path.split('/')[-1]) }}"
-        class="btn btn-success" target="_blank"
-      >
-        Download Model
-      </a>
-
-      <a
-        href="{{ url_for('predict_now', model_id=model_id) }}"
-        class="btn btn-primary" target="_blank"
-      >
-        Predict Now
-      </a>
+      <<form method="POST">
+        {% for col in columns %}
+          <label>{{ col }}:</label>
+          {% if col in cat_values %}
+            <select name="{{ col }}" required>
+              {% for val in cat_values[col] %}
+                <option value="{{ val }}">{{ val }}</option>
+              {% endfor %}
+            </select>
+          {% else %}
+            <input type="text" name="{{ col }}" required>
+          {% endif %}
+          <br>
+        {% endfor %}
+      
+        <button type="submit">Predict</button>
+      
+        <!-- ✅ ปุ่มดาวน์โหลดโมเดล -->
+        <a href="{{ url_for('download_catboost_model', filename='catboost_trained_' + model_id + '.pkl') }}"
+           class="btn btn-secondary" style="margin-left: 10px;">
+          Download Model
+        </a>
+      </form>
+      
+      {% if result is defined %}
+        <h3>Prediction Result: Cluster {{ result }}</h3>
+      {% endif %}
+      
+      {% if cluster_info %}
+        <h3>Cluster Explanation:</h3>
+        <ul>
+          {% for cluster in cluster_info.clusters %}
+            <li>
+              <strong>{{ cluster.cluster }} - {{ cluster.group_name }}</strong>: {{ cluster.description }}
+              <ul>
+                {% for crit in cluster.criteria %}
+                  <li>{{ crit }}</li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      
+      
     </section>
     <!-- Section Upload & Train End -->
 
